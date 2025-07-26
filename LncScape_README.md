@@ -1,93 +1,113 @@
-
 # LncScape: lncRNA Discovery and Dynamics Analysis from Single-Cell RNA-Seq Data
 
 ## Overview
 
-**LncScape** is a **Shiny application** designed for researchers and bioinformaticians working on **lncRNA dynamics, TF–lncRNA interactions, and pathway enrichment analysis from single-cell RNA-seq data**.
+**LncScape** is a user-friendly **Shiny application** designed for researchers and bioinformaticians working on **lncRNA discovery**, **TF–lncRNA interaction analysis**, and **pathway enrichment** using **single-cell RNA-seq (scRNA-seq)** data.
 
-This tool allows users to analyze **both GEO datasets and 10x Genomics datasets** in a **generalized pipeline** without requiring advanced coding skills.
+The app enables automated analysis of **both GEO and 10x Genomics datasets** in a **generalized pipeline**, with **no coding required**.
 
-## Key Features
+---
 
-- ✅ Data Input & Clustering (UMAP-based)
-- ✅ lncRNA Discovery (GENCODE v44 reference)
-- ✅ Pseudotime Analysis (Trajectory Inference)
-- ✅ LDS Method (lncRNA Dynamics Score - Variance + Pseudotime Correlation)
-- ✅ TF–lncRNA Dynamics Prioritization (TLD Score)
-- ✅ Pathway Enrichment & GSVA Analysis
+## ✅ Key Features
 
-## Input Data
+- Data input via `.rds` files (GEO/10x supported)
+- UMAP-based clustering
+- lncRNA detection using **GENCODE v44**
+- LDS score: identifies dynamic lncRNAs over pseudotime
+- TLD score: transcription factor–lncRNA prioritization
+- GSVA-based pathway enrichment
+- High-resolution output plots and CSVs
 
-LncScape supports:
+---
 
-- **Single-cell RNA-seq data from GEO or 10x Genomics**
-- **Seurat v5 `.rds` files**
+## 📂 Input Requirements
 
-### How to Prepare Your Data
+- `.rds` file (Seurat v5 format)
+- Can be generated from **GEO or 10x Genomics** count matrices
 
-- Convert your dataset to **`.rds` format in R** using Seurat (v5 recommended).
-- **Any dataset can be used** after this conversion.
+### ➤ Preparing Your Data
 
-## Demo Data
+```r
+# Example (from 10x or GEO matrix):
+seurat_obj <- CreateSeuratObject(counts = your_matrix)
+saveRDS(seurat_obj, file = "your_dataset.rds")
+```
 
-We provide **small demo datasets** for testing:
+---
 
-| **File** | **Description** |
-|----------|----------------|
-| `small_demo_seurat.rds` | Demo GEO dataset (200 cells × all genes) |
-| `small_10x_demo_seurat.rds` | Demo 10x Genomics dataset (200 cells × all genes) |
+## 🧪 Datasets Tested
 
-## Usage Instructions (For Non-Coders)
+LncScape has been tested on **five real-world datasets**:
 
-- **Compatible Datasets:**  
-You can use **any scRNA-seq dataset** from **GEO or 10x Genomics** by converting it to `.rds` format.
+| Dataset Type | Source | Description |
+|--------------|--------|-------------|
+| Lung cancer (GEO) | GEO | Public scRNA-seq dataset |
+| Breast cancer (GEO) | GEO | Validated on multiple samples |
+| Pancreatic cancer (GEO) | GEO | Human CAR T-cell response |
+| Brain tumor (10x) | 10x Genomics | Commercial single-cell dataset |
+| Lung cancer (10x) | 10x Genomics | Public dataset, high complexity |
 
-- **Important:**  
-If you run locally (not via the app interface), **edit the file path in your code to point to your `.rds` dataset location**.
+All datasets processed successfully with full outputs: **lncRNA files**, **LDS scores**, **TLD prioritization**, and **cluster plots**.
 
-- **Analysis Workflow:**  
-1️⃣ **Run Clustering First** (this step initializes downstream analysis)  
-2️⃣ After clustering, proceed with **lncRNA discovery, LDS, TLD, pseudotime, and pathway enrichment**
+---
 
-## How to Run LncScape
+## 🎯 Quick Start
 
 ### Option 1: Run in RStudio
 
-1. Open `app.R` in RStudio  
+1. Open `app.R`
 2. Click **Run App**
 
-### Option 2: Run in R Console
+### Option 2: R Console
 
 ```r
 shiny::runApp("your_app_folder_path")
 ```
 
-Replace `"your_app_folder_path"` with the directory where you saved the app.
+---
 
-## Full Data Download (Pathways, GTF, TF Files)
+## 📦 Demo Files Included
 
-Due to GitHub file size limitations, the following large files are provided via Google Drive:
+| File Name | Description |
+|-----------|-------------|
+| `small_demo_seurat.rds` | Lung cancer (GEO) |
+| `small_demo_seurat_breast.rds` | Breast cancer |
+| `small_demo_seurat_pancreas.rds` | Pancreatic cancer |
+| `small_demo_seurat_brain.rds` | Brain tumor (10x) |
+| `small_10x_demo_seurat_lung.rds` | Lung cancer (10x) |
 
-- 6 Pathway `.rds` files  
-- 6 GSVA `.rds` files  
-- `gencode.v44.annotation.gtf`  
+> ⚠️ These are 200-cell subsamples to meet GitHub limits. Full datasets used for testing are available on request.
+
+---
+
+## 🔗 External Files
+
+Some files are too large for GitHub and must be downloaded manually:
+
+- 6 Pathway `.rds` files
+- GSVA `.rds` files
+- `gencode.v44.annotation.gtf`
 - `TF_target.rds`
 
-### **Download Link:**
+👉 [**Download from Google Drive**](https://drive.google.com/drive/folders/1sIHNTeEyzXJc9gMayGmIOxeev1wwSOp6?usp=sharing)
 
-[Download Large Data Files from Google Drive](https://drive.google.com/drive/folders/1sIHNTeEyzXJc9gMayGmIOxeev1wwSOp6?usp=sharing)
+Place them into the app’s `Data/` folder after download.
 
-After downloading, place these files into your local `Data/` folder in the app directory.
+---
 
-## License
+## 📄 License
 
 MIT License
 
-## Contact
+---
 
-For questions or support, contact:  
-**haider@emails.bjut.edu.cn**
+## 📬 Contact
 
-## Citation
+**Developer:** Haider  
+📧 haider@emails.bjut.edu.cn
 
-If you use **LncScape** in your research, please cite this tool appropriately in your manuscript.
+---
+
+## 📚 Citation
+
+If LncScape contributes to your research, please cite this tool in your publication.
